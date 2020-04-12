@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','PagesController@index')->name('index');
+Route::get('create','PagesController@create')->name('create');
+Route::post('store','PagesController@store')->name('store');
+Route::get('show/{id}','PagesController@show')->name('show');
+Route::get('edit/{id}','PagesController@edit')->name('edit');
+Route::post('update/{id}','PagesController@update')->name('update');
+Route::post('delete/{id}','PagesController@delete')->name('delete');
+Route::get('/table','PagesController@table');
