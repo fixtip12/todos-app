@@ -9,7 +9,9 @@
             <ul class="list-group"style="list-style:none;">
                   @foreach($posts as $post)
                 <li class="list-group-item">{{$post->name}}
-                <a href="{{route('show',['id'=> $post->id])}}" class="btn btn-primary float-right">View</a></li>
+                  @if(!$post->completed)<a href="{{route('completed',['id'=> $post->id])}}" class="btn btn-sm btn-info float-right">completed</a>@endif
+                  <a href="{{route('show',['id'=> $post->id])}}" class="btn btn-sm btn-primary float-right mr-2">View</a>
+                </li>
                 @endforeach
             </ul>
        </div>

@@ -22,16 +22,18 @@ class PagesController extends Controller
      * @return void
      */
     public function store(){
-        $validatedData = \request()->validate([
-            'name' => 'required|max:255',
+        $validatedData = request()->validate([
+            'name' => 'required|min:6|max:12',
             'description' => 'required',
         ]);
         $post = new Post();
         $data = [
             'name' => \request('name'),
-            'description' =>request('description')
+            'description' =>request('description'),
+            'completed' => false
         ];
         $post->fill($data)->save();
+        session()->flash('success','created successfully!');
 
         return redirect()->route('index');
     }
@@ -47,17 +49,33 @@ class PagesController extends Controller
         return view('edit',compact('post'));
     }
     public function update(int $id){
+        $validatedData = request()->validate([
+            'name' => 'required|min:6|max:12',
+            'description' => 'required',
+        ]);
         $post = Post::find($id);
         $data = [
             'name' => \request('name'),
             'description' =>request('description')
         ];
         $post->fill($data)->save();
+        session()->flash('success','updated successfully!');
         return redirect()->route('index');
     }
     public function delete(int $id){
         $post = Post::find($id);
         $post->delete();
+        session()->flash('success','deleted successfully!');
+        return redirect()->route('index');
+    }
+
+    public function completed(int $id)
+    {
+        $post = Post::find($id);
+        $post->completed = true;
+        $post->save();
+
+        session()->flash('success','completed successfully!');
         return redirect()->route('index');
     }
 

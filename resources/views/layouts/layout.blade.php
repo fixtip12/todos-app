@@ -21,6 +21,11 @@
     </div>
   </nav>
   <div class="container">
+    @if(session()->has('success'))
+      <div class="alert alert-success">
+        {{session()->get('success')}}
+      </div>
+    @endif
       <div class="row justify-content-center">
           <div class="col-md-6">
               <h1 class="text-center my-5">@yield('title')</h1>
